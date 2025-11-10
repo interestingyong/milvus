@@ -97,7 +97,7 @@ func (p *knowhereConfig) GetRuntimeParameter(stage string) (map[string]string, e
 	params := make(map[string]string)
 
 	if stage == BuildStage {
-		params[BuildDramBudgetKey] = fmt.Sprintf("%f", float32(hardware.GetFreeMemoryCount())/(1<<30))
+		params[BuildDramBudgetKey] = fmt.Sprintf("%f", float32(hardware.GetFreeMemoryCount())/(1<<30)/4)
 	}
 
 	return params, nil

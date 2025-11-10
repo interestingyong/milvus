@@ -13,6 +13,9 @@ FROM ubuntu:jammy-20240530
 
 ARG TARGETARCH
 ARG MILVUS_ASAN_LIB
+    
+ENV http_proxy=http://192.168.1.202:8889
+ENV https_proxy=http://192.168.1.202:8889
 
 # Install ca-certificates first, then switch to HTTPS and install other packages
 RUN apt-get update && \
