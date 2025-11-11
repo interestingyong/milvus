@@ -50,6 +50,13 @@ RUN groupadd -r milvus && useradd -r -g milvus milvus && \
 ENV ASAN_OPTIONS=detect_leaks=1
 USER milvus:milvus
 
+
+# 在 ENTRYPOINT 之前取消代理设置
+ENV http_proxy=""
+ENV https_proxy=""
+ENV HTTP_PROXY=""
+ENV HTTPS_PROXY=""
+
 ENTRYPOINT ["/tini", "--"]
 
 WORKDIR /milvus/
