@@ -102,7 +102,7 @@ func GetMemoryCount() uint64 {
 
 // GetFreeMemoryCount returns the free memory in bytes.
 func GetFreeMemoryCount() uint64 {
-	return GetMemoryCount() - GetUsedMemoryCount()
+	return (GetMemoryCount() - GetUsedMemoryCount())/4
 }
 
 // GetDiskUsage Get Disk Usage in GB
