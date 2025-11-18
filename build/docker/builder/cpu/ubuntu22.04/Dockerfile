@@ -32,6 +32,8 @@ RUN echo "target arch $TARGETARCH"
 RUN wget -qO- "https://cmake.org/files/v3.31/cmake-3.31.8-linux-`uname -m`.tar.gz" | tar --strip-components=1 -xz -C /usr/local
 
 # Install Go
+ARG HTTP_PROXY=http://192.168.1.202:8889
+ARG HTTPS_PROXY=http://192.168.1.202:8889
 ENV GOPATH /go
 ENV GOROOT /usr/local/go
 ENV GO111MODULE on
@@ -40,6 +42,12 @@ RUN mkdir -p /usr/local/go && wget -qO- "https://go.dev/dl/go1.24.6.linux-$TARGE
     mkdir -p "$GOPATH/src" "$GOPATH/bin" && \
     go clean --modcache && \
     chmod -R 777 "$GOPATH" && chmod -R a+w $(go env GOTOOLDIR)
+ENV GIT_HTTP_PROXY=${HTTP_PROXY}
+ENV GIT_HTTPS_PROXY=${HTTPS_PROXY}
+
+# 或者在容器内配置git代理
+RUN git config --global http.proxy ${HTTP_PROXY} && \
+    git config --global https.proxy ${HTTPS_PROXY}
 
 # refer: https://code.visualstudio.com/docs/remote/containers-advanced#_avoiding-extension-reinstalls-on-container-rebuild
 RUN mkdir -p /home/milvus/.vscode-server/extensions \

@@ -230,7 +230,7 @@ integration-test: getdeps
 	@echo "Building integration tests ..."
 	@(env bash $(PWD)/scripts/run_intergration_test.sh "$(INSTALL_PATH)/gotestsum --")
 
-BUILD_TAGS = $(shell git describe --tags --always --dirty="-dev")
+BUILD_TAGS = $(shell git describe --tags --always )
 BUILD_TAGS_GPU = ${BUILD_TAGS}-gpu
 BUILD_TIME = $(shell date -u)
 GIT_COMMIT = $(shell git rev-parse --short HEAD)

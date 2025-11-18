@@ -20,6 +20,8 @@
 set -e
 # Print commands
 set -x
+export http_proxy=http://192.168.1.202:8889
+export https_proxy=http://192.168.1.202:8889
 
 # Absolute path to the toplevel milvus directory.
 toplevel=$(dirname "$(cd "$(dirname "${0}")"; pwd)")
@@ -33,6 +35,7 @@ OS_NAME="${OS_NAME:-ubuntu20.04}"
 MILVUS_IMAGE_REPO="${MILVUS_IMAGE_REPO:-milvusdb/milvus}"
 MILVUS_IMAGE_TAG="${MILVUS_IMAGE_TAG:-latest}"
 
+IMAGE_ARCH=""
 if [ -z "$IMAGE_ARCH" ]; then
     MACHINE=$(uname -m)
     if [ "$MACHINE" = "x86_64" ]; then

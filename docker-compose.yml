@@ -10,7 +10,9 @@ x-ccache: &ccache
 services:
   builder:
     image: ${IMAGE_REPO}/milvus-env:${OS_NAME}-${DATE_VERSION}
-    # Build devcontainer
+    network_mode: "host"
+    network_mode: "host"
+        # Build devcontainer
     build:
       context: .
       dockerfile: build/docker/builder/cpu/${OS_NAME}/Dockerfile
@@ -33,6 +35,9 @@ services:
       AZURE_STORAGE_CONNECTION_STRING: ${AZURITE_CONNECTION_STRING}
       ENABLE_GCP_NATIVE: ${ENABLE_GCP_NATIVE}
       USE_ASAN: ${USE_ASAN}
+      GOPROXY: https://goproxy.cn,direct  # 添加这里
+      http_proxy: http://192.168.1.202:8889
+      https_proxy: http://192.168.1.202:8889
     volumes: &builder-volumes
       - .:/go/src/github.com/milvus-io/milvus:delegated
       - ${DOCKER_VOLUME_DIRECTORY:-.docker}/${IMAGE_ARCH}-${OS_NAME}-ccache:/ccache:delegated
