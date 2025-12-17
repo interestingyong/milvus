@@ -97,6 +97,7 @@ GPU_VERSION="OFF" #defaults to CPU version
 CUDA_ARCH="DEFAULT"
 EMBEDDED_MILVUS="OFF"
 BUILD_DISK_ANN="OFF"
+BUILD_ODIN_ANN="OFF"
 USE_ASAN="OFF"
 USE_DYNAMIC_SIMD="ON"
 USE_OPENDAL="OFF"
@@ -134,6 +135,7 @@ while getopts "p:t:s:n:a:y:x:o:f:ulcgbZh" arg; do
     ;;
   n)
     BUILD_DISK_ANN=$OPTARG
+    BUILD_ODIN_ANN=$OPTARG
     ;;
   a)
     ENV_VAL=$OPTARG
@@ -202,6 +204,7 @@ if [ -f /etc/os-release ]; then
 fi
 if [ "$OS" = "ubuntu" ] || [ "$OS" = "rocky" ] || [ "$OS" = "amzn" ]; then
   BUILD_DISK_ANN=ON
+  BUILD_ODIN_ANN=ON
 fi
 
 pushd ${BUILD_OUTPUT_DIR}
@@ -225,6 +228,7 @@ ${CMAKE_EXTRA_ARGS} \
 -DMILVUS_CUDA_ARCH=${CUDA_ARCH} \
 -DEMBEDDED_MILVUS=${EMBEDDED_MILVUS} \
 -DBUILD_DISK_ANN=${BUILD_DISK_ANN} \
+-DBUILD_ODIN_ANN=${BUILD_ODIN_ANN} \
 -DMILVUS_JEMALLOC_LG_PAGE=16 \
 -DUSE_ASAN=${USE_ASAN} \
 -DUSE_DYNAMIC_SIMD=${USE_DYNAMIC_SIMD} \

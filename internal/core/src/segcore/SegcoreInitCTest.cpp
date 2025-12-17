@@ -27,7 +27,7 @@ TEST(Init, Naive) {
 }
 
 TEST(Init, KnowhereThreadPoolInit) {
-#ifdef BUILD_DISK_ANN
+#if defined(BUILD_DISK_ANN) || defined(BUILD_ODIN_ANN)
     try {
         milvus::config::KnowhereInitSearchThreadPool(0);
     } catch (std::exception& e) {

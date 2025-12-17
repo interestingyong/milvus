@@ -64,6 +64,7 @@ endif()
     list(FILTER MILVUS_TEST_FILES EXCLUDE REGEX "MinioChunkManagerTest\\.cpp$")
 # endif()
 
+
 # bitset has its own test binary
 list(FILTER MILVUS_TEST_FILES EXCLUDE REGEX "BitsetTest\\.cpp$")
 

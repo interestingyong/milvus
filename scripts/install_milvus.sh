@@ -20,10 +20,23 @@ set -e
 
 mkdir -p "$GOPATH/bin" && cp -f "$PWD/bin/milvus" "$GOPATH/bin/milvus"
 mkdir -p "$LIBRARY_PATH"
+
+// Copy liburing libraries
+LIBURING_PATH="$PWD/cmake_build/thirdparty/knowhere/knowhere-src/thirdparty/OdinANN/third_party/liburing/install/lib"
+if [ -d "$LIBURING_PATH" ]; then
+    cp "$LIBURING_PATH"/liburing.so* "$LIBRARY_PATH" 2>/dev/null || true
+    cp "$LIBURING_PATH"/liburing-ffi.so* "$LIBRARY_PATH" 2>/dev/null || true
+fi
+
 cp $PWD"/internal/core/output/lib/"*.dylib* "$LIBRARY_PATH" 2>/dev/null || true
 cp $PWD"/internal/core/output/lib/"*.so* "$LIBRARY_PATH" || true
 cp $PWD"/internal/core/output/lib64/"*.so* "$LIBRARY_PATH" 2>/dev/null || true
 
 for LIB_PATH in $(ldd ./bin/milvus | grep -E '(asan|atomic)' | awk '{print $3}'); do
     cp "$LIB_PATH" "$LIBRARY_PATH" 2>/dev/null
+done
+
+while [[ 1 ]];do
+echo "keep container for check milvus depending is okay."
+sleep 300;
 done
